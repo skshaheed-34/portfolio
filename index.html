@@ -5,154 +5,528 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Shaheed Basha Shaik | Portfolio</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet"/>
+
   <style>
-    body {
-      font-family: 'Inter', sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #f9f9f9;
-      color: #333;
-      line-height: 1.6;
+    :root{
+      --bg:#0b1220;
+      --card: rgba(255,255,255,0.08);
+      --card2: rgba(255,255,255,0.06);
+      --text:#e7eefc;
+      --muted:#b7c6e6;
+      --accent:#4f8cff;
+      --accent2:#7c3aed;
+      --line: rgba(255,255,255,0.12);
+      --shadow: 0 18px 45px rgba(0,0,0,0.35);
+      --radius: 18px;
     }
-    header {
-      background: #1e3a8a;
-      color: white;
-      padding: 2rem;
-      padding-right: 150px;
-      text-align: center;
-      position: relative;
+    *{box-sizing:border-box}
+    body{
+      font-family:'Inter',sans-serif;
+      margin:0; padding:0;
+      background: radial-gradient(1200px 700px at 10% 10%, rgba(79,140,255,0.35), transparent 60%),
+                  radial-gradient(900px 600px at 90% 20%, rgba(124,58,237,0.35), transparent 60%),
+                  radial-gradient(900px 650px at 50% 90%, rgba(34,197,94,0.18), transparent 55%),
+                  var(--bg);
+      color:var(--text);
+      line-height:1.6;
+      overflow-x:hidden;
     }
-    header h1 {
-      margin: 0.2rem 0;
+
+    /* subtle animated grid */
+    .bg-grid{
+      position:fixed; inset:0;
+      pointer-events:none;
+      background-image:
+        linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(400px 250px at 50% 30%, rgba(0,0,0,0.9), transparent 70%);
+      opacity:0.65;
+      transform: translateZ(0);
     }
-    .profile-pic {
-      position: absolute;
-      top: 1rem;
-      right: 10rem;
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;   
+
+    header{
+      position:relative;
+      padding:28px 0 0;
+    }
+
+    .container{
+      width:min(1100px, 92%);
+      margin:0 auto;
+    }
+
+    /* Top nav */
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      padding:14px 18px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,0.06);
+      border-radius: 999px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      font-weight:800;
+      letter-spacing:0.4px;
+    }
+    .brand-dot{
+      width:10px; height:10px; border-radius:50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: 0 0 0 5px rgba(79,140,255,0.15);
+    }
+    .nav a{
+      color:var(--text);
+      text-decoration:none;
+      font-weight:600;
+      opacity:0.9;
+    }
+    .nav-links{display:flex; gap:14px; flex-wrap:wrap; justify-content:flex-end}
+    .nav a:hover{opacity:1; text-decoration:underline}
+
+    /* Hero */
+    .hero{
+      margin-top:18px;
+      padding:28px 0 10px;
+      position:relative;
+    }
+    .hero-card{
+      border:1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.05));
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+      padding: 26px;
+      display:grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 20px;
+      align-items:center;
+      position:relative;
+      overflow:hidden;
+    }
+    /* decorative blobs */
+    .hero-card::before, .hero-card::after{
+      content:"";
+      position:absolute;
+      width:420px; height:420px;
+      border-radius:50%;
+      filter: blur(30px);
+      opacity:0.25;
+      z-index:0;
+    }
+    .hero-card::before{
+      background: radial-gradient(circle at 30% 30%, var(--accent), transparent 55%);
+      left:-180px; top:-220px;
+    }
+    .hero-card::after{
+      background: radial-gradient(circle at 30% 30%, var(--accent2), transparent 55%);
+      right:-200px; bottom:-240px;
+    }
+    .hero-left, .hero-right{position:relative; z-index:1;}
+    .kicker{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:6px 12px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,0.06);
+      color: var(--muted);
+      font-weight:600;
+      font-size: 13px;
+    }
+    .kicker svg{opacity:0.9}
+    h1{
+      margin:12px 0 8px;
+      font-size: clamp(30px, 4vw, 44px);
+      line-height:1.15;
+      letter-spacing:-0.6px;
+    }
+    .subtitle{
+      margin:0 0 16px;
+      color: var(--muted);
+      font-size: 15.5px;
+      max-width: 62ch;
+    }
+    .chips{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin: 14px 0 18px;
+    }
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,0.06);
+      font-weight:600;
+      color: var(--text);
+      font-size: 13px;
+    }
+    .chip svg{opacity:0.95}
+    .btns{display:flex; flex-wrap:wrap; gap:12px; margin-top: 10px;}
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      text-decoration:none;
+      font-weight:700;
+      border:1px solid var(--line);
+      transition: transform 180ms ease, background 180ms ease, opacity 180ms ease;
+      will-change: transform;
+    }
+    .btn-primary{
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color:white;
+      border: none;
+      box-shadow: 0 14px 28px rgba(79,140,255,0.18);
+    }
+    .btn-secondary{
+      background: rgba(255,255,255,0.06);
+      color: var(--text);
+    }
+    .btn:hover{transform: translateY(-2px);}
+
+    /* Profile */
+    .profile{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      gap:14px;
+      flex-direction:column;
+    }
+    .avatar{
+      width: 170px;
+      height: 170px;
+      border-radius: 50%;
+      border: 3px solid rgba(255,255,255,0.85);
       object-fit: cover;
-      border: 3px solid white;
-      background-color: white;
+      background:#fff;
+      box-shadow: 0 22px 45px rgba(0,0,0,0.35);
     }
-    .section {
-      padding: 1rem;
-      max-width: 900px;
-      margin: auto;
+    .mini{
+      display:flex; flex-wrap:wrap; gap:10px; justify-content:center;
+      color: var(--muted);
+      font-weight:600;
+      font-size: 13px;
+      opacity:0.95;
     }
-    h2 {
-      color: #1e3a8a;
+    .mini span{
+      padding:7px 10px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background: rgba(255,255,255,0.05);
     }
-    .buttons a {
-      display: inline-block;
-      background: #1e3a8a;
-      color: white;
-      padding: 0.75rem 1.5rem;
-      text-decoration: none;
-      border-radius: 5px;
-      margin: 0.5rem 1rem 0.5rem 0;
+
+    /* Sections */
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 18px 0;
     }
-    .buttons a:hover {
-      background: #3b82f6;
+    .card{
+      border:1px solid var(--line);
+      background: rgba(255,255,255,0.06);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+      transition: transform 180ms ease;
     }
-    footer {
-      text-align: center;
-      padding: 2rem;
-      background: #e5e7eb;
+    .card:hover{transform: translateY(-2px);}
+    .card h2{
+      margin: 0 0 10px;
+      font-size: 18px;
+      letter-spacing:-0.2px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    .card p{margin:0; color: var(--muted);}
+
+    /* Skills chips */
+    .skill-chips{
+      display:flex; flex-wrap:wrap; gap:10px;
+      margin-top: 10px;
+    }
+    .skill{
+      padding: 8px 10px;
+      border-radius: 999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,0.05);
+      font-weight:600;
+      color: var(--text);
+      font-size: 13px;
+      opacity:0.95;
+    }
+
+    /* Experience timeline */
+    .timeline{margin-top: 6px;}
+    .trow{
+      display:grid;
+      grid-template-columns: 14px 1fr;
+      gap:12px;
+      padding: 10px 0;
+    }
+    .dot{
+      width:10px; height:10px; border-radius:50%;
+      margin-top: 7px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: 0 0 0 5px rgba(79,140,255,0.15);
+    }
+    .trow h3{margin:0; font-size:15.5px;}
+    .tmeta{color: var(--muted); font-weight:600; font-size: 13px; margin-top:2px;}
+    .trow p{margin:6px 0 0; color: var(--muted);}
+
+    /* Footer */
+    footer{
+      margin: 22px 0 30px;
+      padding: 16px 0;
+      color: var(--muted);
+      text-align:center;
+      opacity:0.95;
+    }
+    footer a{color: var(--text); text-decoration:underline;}
+
+    /* Responsive */
+    @media (max-width: 900px){
+      .hero-card{grid-template-columns: 1fr; text-align:left;}
+      .profile{align-items:flex-start}
+      .grid{grid-template-columns: 1fr;}
+      .nav{border-radius: 18px;}
+      .nav-links{justify-content:flex-start}
     }
   </style>
 </head>
 
 <body>
-  <header>
-    <img src="image.jpeg" alt="Shaheed Basha Shaik" class="profile-pic" />
-    <h1>Shaheed Basha Shaik</h1>
-    <p>ASIC / RTL Design • SoC Design Verification • FPGA Prototyping</p>
+  <div class="bg-grid"></div>
 
-    <div class="buttons">
-      <a href="Shaheed_Basha_Shaik_Portfolio.pdf" download>Download Resume</a>
-      <a href="Shaheed_Basha_Shaik_Coverletter.pdf" download>Download Cover Letter</a>
-      <a href="project.html">View Projects</a>
-    </div>
+  <header class="container">
+    <nav class="nav">
+      <div class="brand">
+        <span class="brand-dot"></span>
+        <span>Shaheed Basha Shaik</span>
+      </div>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="project.html">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="#experience">Experience</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <div class="hero-card">
+        <div class="hero-left">
+          <span class="kicker">
+            <!-- chip icon -->
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+              <path d="M9 3v3M15 3v3M9 18v3M15 18v3M3 9h3M3 15h3M18 9h3M18 15h3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <rect x="7" y="7" width="10" height="10" rx="2" stroke="currentColor" stroke-width="2"/>
+            </svg>
+            ASIC / RTL • SoC Verification • FPGA
+          </span>
+
+          <h1>Building reliable hardware systems through design + verification.</h1>
+
+          <p class="subtitle" id="about">
+            I’m an M.S. Computer Engineering student at San Diego State University with hands-on experience in
+            <strong>ASIC/SoC design, RTL development, and design verification</strong>. I work with
+            <strong>SystemVerilog/UVM</strong>, assertions, coverage closure, synthesis/STA concepts, and FPGA prototyping,
+            supported by <strong>Python/Tcl automation</strong> and disciplined waveform/debug workflows.
+          </p>
+
+          <div class="chips">
+            <span class="chip">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <path d="M4 6h16M4 12h10M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+              UVM + SVA + Coverage
+            </span>
+            <span class="chip">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <path d="M7 7h10v10H7z" stroke="currentColor" stroke-width="2"/>
+                <path d="M9 9h6v6H9z" stroke="currentColor" stroke-width="2"/>
+              </svg>
+              RTL Integration + Timing
+            </span>
+            <span class="chip">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <path d="M4 19V5m0 14h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M7 16l3-5 3 3 4-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Python/Tcl Automation
+            </span>
+          </div>
+
+          <div class="btns">
+            <a class="btn btn-primary" href="Shaheed_Basha_Shaik_Portfolio.pdf" download>
+              <!-- download icon -->
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path d="M12 3v10m0 0l4-4m-4 4l-4-4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M4 17v3h16v-3" stroke="white" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+              Resume (PDF)
+            </a>
+            <a class="btn btn-secondary" href="Shaheed_Basha_Shaik_Coverletter.pdf" download>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path d="M4 7h16v12H4z" stroke="currentColor" stroke-width="2"/>
+                <path d="M4 7l8 6 8-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Cover Letter
+            </a>
+            <a class="btn btn-secondary" href="project.html">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+              Projects
+            </a>
+          </div>
+        </div>
+
+        <div class="hero-right">
+          <div class="profile">
+            <img src="image.jpeg" alt="Shaheed Basha Shaik" class="avatar"/>
+            <div class="mini">
+              <span>San Diego, CA</span>
+              <span>M.S. CompE (Dec 2026)</span>
+              <span>GPA 3.5/4.0</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   </header>
 
-  <section class="section">
-    <h2>About Me</h2>
-    <p>
-      I am a Computer Engineering master’s student at San Diego State University with hands-on experience across
-      ASIC/SoC design, RTL development, and design verification. My work includes SystemVerilog/UVM-based
-      verification, assertion-driven validation, coverage closure, RTL integration, and FPGA prototyping, supported by
-      Python/Tcl automation and disciplined debugging through waveform analysis and lab validation.
-    </p>
-  </section>
+  <main class="container">
+    <section class="grid" id="skills">
+      <div class="card">
+        <h2>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <path d="M7 4h10v16H7z" stroke="currentColor" stroke-width="2"/>
+            <path d="M9 8h6M9 12h6M9 16h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          Core Skills
+        </h2>
+        <p>Focused on ASIC/SoC verification + RTL design with strong automation and debug workflows.</p>
+        <div class="skill-chips">
+          <span class="skill">SystemVerilog</span>
+          <span class="skill">UVM</span>
+          <span class="skill">SVA</span>
+          <span class="skill">Functional Coverage</span>
+          <span class="skill">RTL Design</span>
+          <span class="skill">Synthesis / STA</span>
+          <span class="skill">GLS / Equivalence</span>
+          <span class="skill">Python / Tcl</span>
+          <span class="skill">Vivado</span>
+          <span class="skill">Questa / ModelSim</span>
+        </div>
+      </div>
 
-  <section class="section">
-  <h2>Skills</h2>
-  <ul>
-    <li><strong>Design Verification & RTL:</strong>
-      SystemVerilog, Verilog, UVM, SVA, constrained-random testing, functional coverage, coverage closure,
-      directed testing, waveform analysis, RTL debugging
-    </li>
+      <div class="card">
+        <h2>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2l7 4v6c0 5-3 9-7 10-4-1-7-5-7-10V6l7-4z" stroke="currentColor" stroke-width="2"/>
+            <path d="M9 12l2 2 4-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Featured Work
+        </h2>
+        <p>Resume-aligned projects that demonstrate design + verification depth.</p>
+        <div class="skill-chips">
+          <span class="skill">SoC Subsystem UVM</span>
+          <span class="skill">ALU (FPGA)</span>
+          <span class="skill">Formal Properties</span>
+          <span class="skill">Low-Power SRAM Ctrl</span>
+          <span class="skill">Integration & Timing</span>
+          <span class="skill">PLL Simulation</span>
+        </div>
+        <div style="margin-top:12px;">
+          <a class="btn btn-secondary" href="project.html">Open Projects →</a>
+        </div>
+      </div>
+    </section>
 
-    <li><strong>ASIC / SoC Design & Flow:</strong>
-      RTL design & integration, synthesis, static timing analysis (STA), gate-level simulation (GLS),
-      equivalence checking, formal verification (JasperGold exposure), low-power design concepts,
-      clocking & reset strategies, memory-mapped interfaces, SoC architecture fundamentals
-    </li>
+    <section class="grid" id="experience">
+      <div class="card">
+        <h2>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <path d="M3 7h18v13H3z" stroke="currentColor" stroke-width="2"/>
+            <path d="M7 7V5h10v2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M7 11h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          Experience
+        </h2>
+        <div class="timeline">
+          <div class="trow">
+            <div class="dot"></div>
+            <div>
+              <h3>Graduate Teaching Assistant — SDSU (EE 330L / EE 430L)</h3>
+              <div class="tmeta">Aug 2025 – Present • San Diego, CA</div>
+              <p>Supported circuits/electronics labs; guided systematic debugging and validation using bench instrumentation and measurement-driven analysis.</p>
+            </div>
+          </div>
+          <div class="trow">
+            <div class="dot"></div>
+            <div>
+              <h3>Junior Software Engineer — ACS Solutions</h3>
+              <div class="tmeta">Sep 2023 – Jun 2024 • Hyderabad, India</div>
+              <p>Built modular components and automation scripts; performed root-cause debugging using Git/JIRA within Agile workflows.</p>
+            </div>
+          </div>
+        </div>
+      </div>
 
-    <li><strong>FPGA & Prototyping:</strong>
-      FPGA bring-up, RTL validation on FPGA, Vivado, ModelSim / Questa, hardware–software co-design
-    </li>
+      <div class="card" id="contact">
+        <h2>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <path d="M4 7h16v12H4z" stroke="currentColor" stroke-width="2"/>
+            <path d="M4 7l8 6 8-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Contact
+        </h2>
+        <p>Open to full-time roles in ASIC/RTL, SoC verification, FPGA, and validation.</p>
 
-    <li><strong>Embedded Systems:</strong>
-      Embedded C, ARM Cortex-M, STM32, FreeRTOS, bootloader development,
-      UART, SPI, I²C, GPIO, PWM, ADC
-    </li>
+        <div class="skill-chips" style="margin-top:12px;">
+          <span class="skill">📧 skshaheed34@gmail.com</span>
+          <span class="skill">📍 San Diego, CA</span>
+          <span class="skill">📞 (619) 572-2154</span>
+        </div>
 
-    <li><strong>Automation & Scripting:</strong>
-      Python, Tcl, Bash, regression automation, log analysis,
-      test infrastructure development, data analysis (NumPy, Pandas, Matplotlib)
-    </li>
+        <div class="btns" style="margin-top:14px;">
+          <a class="btn btn-secondary" href="https://www.linkedin.com/in/shaheed-basha-shaik/" target="_blank" rel="noreferrer">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <path d="M4 4h4v16H4zM10 10h4v10h-4zM14 10c0-2 2-3 4-3s2 1 2 3v10h-4V12c0-1-1-2-2-2s-2 1-2 2v8h-2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            LinkedIn
+          </a>
+          <a class="btn btn-secondary" href="project.html">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            View Projects
+          </a>
+        </div>
+      </div>
+    </section>
 
-    <li><strong>EDA Tools & Simulation:</strong>
-      Cadence Virtuoso, Synopsys Design Compiler, Cadence JasperGold,
-      HSPICE, Spectre, LTspice
-    </li>
+    <footer>
+      <div>© <span id="yr"></span> Shaheed Basha Shaik • Built with HTML/CSS</div>
+    </footer>
+  </main>
 
-    <li><strong>Hardware Lab & Validation:</strong>
-      Oscilloscope, logic analyzer, signal generator, multimeter,
-      measurement-driven debug, post-silicon validation fundamentals
-    </li>
-
-    <li><strong>Software & Workflow:</strong>
-      Linux, Git, GitHub, JIRA, Agile development, technical documentation
-    </li>
-  </ul>
-</section>
-
-
-  <section class="section">
-    <h2>Experience</h2>
-    <p><strong>Graduate Teaching Assistant, SDSU (EE 330L / EE 430L) —> Aug 2025 – Present</strong><br>
-      Supported labs in electronic circuits and engineering electronics; guided systematic debugging and validation using bench instrumentation and measurement-driven analysis.</p>
-
-    <p><strong>Junior Software Engineer, ACS Solutions —> Sep 2023 – Jun 2024</strong><br>
-      Developed modular software components and automation scripts; performed systematic debugging and root-cause analysis using Git/JIRA in Agile workflows.</p>
-  </section>
-
-  <section class="section">
-    <h2>Education</h2>
-    <p><strong>Master of Science in Computer Engineering</strong>, San Diego State University — <strong>Expected June 2026</strong> (GPA: 3.5/4.0)</p>
-    <p><strong>Bachelor of Technology in Electronics and Communication</strong>, VJIT, Hyderabad — Jul 2023 (GPA: 8.59/10)</p>
-  </section>
-
-  <footer>
-    <p>
-      Contact: skshaheed34@gmail.com |
-      <a href="https://www.linkedin.com/in/shaheed-basha-shaik/" target="_blank">LinkedIn</a> |
-      (619)-572-2154
-    </p>
-  </footer>
+  <script>
+    document.getElementById("yr").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
