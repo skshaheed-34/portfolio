@@ -25,17 +25,37 @@
     header h1 {
       margin: 0.2rem 0;
     }
+
+    /* Updated profile image styles: circular, crops nicely, subtle white border */
     .profile-pic {
       position: absolute;
       top: 1rem;
-      right: 10rem;
-      width: 150px;
-      height: 150px;
-      border-radius: 5%;
-      object-fit: cover;
-      border: 3px solid white;
-      background-color: white;
+      right: 6rem;       /* adjusted so it sits nicely on the header */
+      width: 150px;      /* control overall size */
+      height: 150px;     /* keep equal for perfect circle */
+      object-fit: cover; /* maintain aspect and crop */
+      border-radius: 50%;/* <-- makes it circular */
+      border: 3px solid rgba(255,255,255,0.95);
+      background-color: #ffffff;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.12);
     }
+
+    /* If you prefer a slightly oval (less height, more rounded) version,
+       uncomment the rules below and comment out the .profile-pic block above.
+    .profile-pic {
+      position: absolute;
+      top: 1.5rem;
+      right: 6.5rem;
+      width: 170px;
+      height: 140px;        / * slightly less height for oval look * /
+      object-fit: cover;
+      border-radius: 999px; / * smooth oval * /
+      border: 3px solid rgba(255,255,255,0.95);
+      background-color: #ffffff;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+    }
+    */
+
     .section {
       padding: 1rem;
       max-width: 900px;
@@ -61,6 +81,17 @@
       padding: 2rem;
       background: #e5e7eb;
     }
+    /* small responsive tweak so image doesn't overflow on small screens */
+    @media (max-width: 640px) {
+      .profile-pic {
+        position: static;
+        display: block;
+        margin: 0.5rem auto 0;
+        width: 120px;
+        height: 120px;
+      }
+      header { padding-right: 1rem; text-align: center; }
+    }
   </style>
 </head>
 <body>
@@ -71,11 +102,8 @@
     <div class="buttons">
       <a href="Shaheed_Basha_Shaik_Portfolio.pdf" download>Download Resume</a>
       <a href="Shaheed_Basha_Shaik_Coverletter.pdf" download>Download Cover Letter</a>
-      
     </div>
   </header>
-
- 
 
   <section class="section">
     <h2>About Me</h2>
@@ -83,7 +111,8 @@
       I am a Computer Engineer with expertise in VLSI design, embedded systems, and software development. Currently pursuing my Master’s at San Diego State University, I bring a track record of innovative projects like neural network-based color detection and responsive web applications. Proficient in Cadence Virtuoso, Verilog, Python, and Angular, I thrive in hardware-software integration and agile development environments.
     </p>
   </section>
-   <section class="section">
+
+  <section class="section">
     <h2>Projects</h2>
     <p><a href="project.html" class="buttons">View All Projects</a></p>
   </section>
