@@ -8,94 +8,138 @@
 
   <style>
     :root{
+      --radius: 18px;
+      --shadow: 0 18px 45px rgba(0,0,0,0.35);
+      --shadow2: 0 12px 30px rgba(0,0,0,0.22);
+    }
+
+    /* -------- THEME TOKENS -------- */
+    /* Default = Dark */
+    :root{
       --bg:#0b1220;
-      --card: rgba(255,255,255,0.08);
-      --card2: rgba(255,255,255,0.06);
       --text:#e7eefc;
       --muted:#b7c6e6;
+      --line: rgba(255,255,255,0.12);
+      --card: rgba(255,255,255,0.08);
+      --card2: rgba(255,255,255,0.06);
       --accent:#4f8cff;
       --accent2:#7c3aed;
-      --line: rgba(255,255,255,0.12);
-      --shadow: 0 18px 45px rgba(0,0,0,0.35);
-      --radius: 18px;
+      --chip: rgba(255,255,255,0.06);
+      --btn: rgba(255,255,255,0.07);
+      --btnHover: rgba(255,255,255,0.10);
+      --grid: rgba(255,255,255,0.05);
     }
+    /* Light theme overrides */
+    [data-theme="light"]{
+      --bg:#f6f8fc;
+      --text:#0b1220;
+      --muted:#3a4a6b;
+      --line: rgba(11,18,32,0.12);
+      --card: rgba(255,255,255,0.85);
+      --card2: rgba(255,255,255,0.78);
+      --accent:#1e3a8a;
+      --accent2:#2563eb;
+      --chip: rgba(11,18,32,0.06);
+      --btn: rgba(11,18,32,0.06);
+      --btnHover: rgba(11,18,32,0.10);
+      --grid: rgba(11,18,32,0.05);
+      --shadow: 0 18px 45px rgba(16,24,40,0.12);
+      --shadow2: 0 12px 30px rgba(16,24,40,0.10);
+    }
+
     *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
     body{
       font-family:'Inter',sans-serif;
       margin:0; padding:0;
-      background: radial-gradient(1200px 700px at 10% 10%, rgba(79,140,255,0.35), transparent 60%),
-                  radial-gradient(900px 600px at 90% 20%, rgba(124,58,237,0.35), transparent 60%),
-                  radial-gradient(900px 650px at 50% 90%, rgba(34,197,94,0.18), transparent 55%),
-                  var(--bg);
+      background:
+        radial-gradient(1200px 700px at 10% 10%, color-mix(in srgb, var(--accent) 35%, transparent), transparent 60%),
+        radial-gradient(900px 600px at 90% 20%, color-mix(in srgb, var(--accent2) 30%, transparent), transparent 60%),
+        radial-gradient(900px 650px at 50% 90%, rgba(34,197,94,0.14), transparent 55%),
+        var(--bg);
       color:var(--text);
       line-height:1.6;
       overflow-x:hidden;
     }
 
-    /* subtle animated grid */
+    /* subtle grid overlay */
     .bg-grid{
       position:fixed; inset:0;
       pointer-events:none;
       background-image:
-        linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px);
+        linear-gradient(to right, var(--grid) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
       background-size: 48px 48px;
-      mask-image: radial-gradient(400px 250px at 50% 30%, rgba(0,0,0,0.9), transparent 70%);
+      mask-image: radial-gradient(420px 280px at 50% 25%, rgba(0,0,0,0.9), transparent 70%);
       opacity:0.65;
-      transform: translateZ(0);
     }
 
-    header{
-      position:relative;
-      padding:28px 0 0;
-    }
+    .container{width:min(1100px, 92%); margin:0 auto;}
+    header{padding:28px 0 0; position:relative;}
 
-    .container{
-      width:min(1100px, 92%);
-      margin:0 auto;
-    }
-
-    /* Top nav */
+    /* NAV */
     .nav{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:16px;
-      padding:14px 18px;
+      display:flex; align-items:center; justify-content:space-between;
+      gap:16px; padding:14px 18px;
       border:1px solid var(--line);
-      background: rgba(255,255,255,0.06);
+      background: var(--card2);
       border-radius: 999px;
       box-shadow: var(--shadow);
       backdrop-filter: blur(12px);
     }
-    .brand{
-      display:flex; align-items:center; gap:10px;
-      font-weight:800;
-      letter-spacing:0.4px;
-    }
+    .brand{display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:0.4px;}
     .brand-dot{
       width:10px; height:10px; border-radius:50%;
       background: linear-gradient(135deg, var(--accent), var(--accent2));
-      box-shadow: 0 0 0 5px rgba(79,140,255,0.15);
+      box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent) 18%, transparent);
     }
-    .nav a{
-      color:var(--text);
-      text-decoration:none;
-      font-weight:600;
-      opacity:0.9;
-    }
-    .nav-links{display:flex; gap:14px; flex-wrap:wrap; justify-content:flex-end}
-    .nav a:hover{opacity:1; text-decoration:underline}
+    .nav-links{display:flex; gap:14px; flex-wrap:wrap; justify-content:flex-end; align-items:center;}
+    .nav a{color:var(--text); text-decoration:none; font-weight:700; opacity:0.9;}
+    .nav a:hover{opacity:1; text-decoration:underline;}
 
-    /* Hero */
-    .hero{
-      margin-top:18px;
-      padding:28px 0 10px;
-      position:relative;
+    /* THEME TOGGLE */
+    .toggle{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border:1px solid var(--line);
+      background: var(--btn);
+      color: var(--text);
+      font-weight:800;
+      cursor:pointer;
+      user-select:none;
+      transition: background 180ms ease, transform 180ms ease;
     }
+    .toggle:hover{background: var(--btnHover); transform: translateY(-1px);}
+    .toggle .pill{
+      width:44px; height:24px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: color-mix(in srgb, var(--accent) 18%, transparent);
+      position:relative;
+      flex: 0 0 auto;
+    }
+    .toggle .knob{
+      position:absolute;
+      top:50%;
+      transform: translateY(-50%);
+      left:3px;
+      width:18px; height:18px;
+      border-radius:50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      transition: left 200ms ease;
+      box-shadow: var(--shadow2);
+    }
+    [data-theme="light"] .toggle .knob{ left: 23px; }
+    .toggle small{opacity:0.9; font-weight:800;}
+
+    /* HERO */
+    .hero{margin-top:18px; padding:28px 0 10px; position:relative;}
     .hero-card{
       border:1px solid var(--line);
-      background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.05));
+      background: linear-gradient(180deg, color-mix(in srgb, var(--card) 90%, transparent), color-mix(in srgb, var(--card2) 90%, transparent));
       border-radius: var(--radius);
       box-shadow: var(--shadow);
       backdrop-filter: blur(14px);
@@ -107,14 +151,13 @@
       position:relative;
       overflow:hidden;
     }
-    /* decorative blobs */
     .hero-card::before, .hero-card::after{
       content:"";
       position:absolute;
       width:420px; height:420px;
       border-radius:50%;
       filter: blur(30px);
-      opacity:0.25;
+      opacity:0.20;
       z-index:0;
     }
     .hero-card::before{
@@ -125,20 +168,17 @@
       background: radial-gradient(circle at 30% 30%, var(--accent2), transparent 55%);
       right:-200px; bottom:-240px;
     }
-    .hero-left, .hero-right{position:relative; z-index:1;}
+    .hero-left,.hero-right{position:relative; z-index:1;}
     .kicker{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
+      display:inline-flex; align-items:center; gap:8px;
       padding:6px 12px;
       border-radius:999px;
       border:1px solid var(--line);
-      background: rgba(255,255,255,0.06);
+      background: var(--chip);
       color: var(--muted);
-      font-weight:600;
+      font-weight:800;
       font-size: 13px;
     }
-    .kicker svg{opacity:0.9}
     h1{
       margin:12px 0 8px;
       font-size: clamp(30px, 4vw, 44px);
@@ -151,159 +191,193 @@
       font-size: 15.5px;
       max-width: 62ch;
     }
-    .chips{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      margin: 14px 0 18px;
-    }
+    .chips{display:flex; flex-wrap:wrap; gap:10px; margin: 14px 0 18px;}
     .chip{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
+      display:inline-flex; align-items:center; gap:8px;
       padding:8px 12px;
       border-radius:999px;
       border:1px solid var(--line);
-      background: rgba(255,255,255,0.06);
-      font-weight:600;
+      background: var(--chip);
+      font-weight:800;
       color: var(--text);
       font-size: 13px;
+      opacity:0.95;
     }
-    .chip svg{opacity:0.95}
+
     .btns{display:flex; flex-wrap:wrap; gap:12px; margin-top: 10px;}
     .btn{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
+      display:inline-flex; align-items:center; gap:10px;
       padding: 10px 14px;
       border-radius: 12px;
       text-decoration:none;
-      font-weight:700;
+      font-weight:900;
       border:1px solid var(--line);
-      transition: transform 180ms ease, background 180ms ease, opacity 180ms ease;
+      transition: transform 180ms ease, background 180ms ease;
       will-change: transform;
+      background: var(--btn);
+      color: var(--text);
     }
+    .btn:hover{transform: translateY(-2px); background: var(--btnHover);}
     .btn-primary{
       background: linear-gradient(135deg, var(--accent), var(--accent2));
       color:white;
       border: none;
-      box-shadow: 0 14px 28px rgba(79,140,255,0.18);
+      box-shadow: 0 14px 28px color-mix(in srgb, var(--accent) 18%, transparent);
     }
-    .btn-secondary{
-      background: rgba(255,255,255,0.06);
-      color: var(--text);
-    }
-    .btn:hover{transform: translateY(-2px);}
+    .btn-primary:hover{transform: translateY(-2px); filter: brightness(1.05);}
 
-    /* Profile */
-    .profile{
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      gap:14px;
-      flex-direction:column;
-    }
+    /* PROFILE */
+    .profile{display:flex; justify-content:center; align-items:center; gap:14px; flex-direction:column;}
     .avatar{
-      width: 170px;
-      height: 170px;
+      width: 170px; height: 170px;
       border-radius: 50%;
-      border: 3px solid rgba(255,255,255,0.85);
+      border: 3px solid color-mix(in srgb, var(--text) 80%, transparent);
       object-fit: cover;
       background:#fff;
-      box-shadow: 0 22px 45px rgba(0,0,0,0.35);
+      box-shadow: var(--shadow);
     }
-    .mini{
-      display:flex; flex-wrap:wrap; gap:10px; justify-content:center;
-      color: var(--muted);
-      font-weight:600;
-      font-size: 13px;
-      opacity:0.95;
-    }
-    .mini span{
-      padding:7px 10px;
-      border:1px solid var(--line);
-      border-radius:999px;
-      background: rgba(255,255,255,0.05);
-    }
+    .mini{display:flex; flex-wrap:wrap; gap:10px; justify-content:center; color: var(--muted); font-weight:800; font-size: 13px;}
+    .mini span{padding:7px 10px; border:1px solid var(--line); border-radius:999px; background: var(--chip);}
 
-    /* Sections */
-    .grid{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin: 18px 0;
-    }
+    /* SECTION GRID */
+    .grid{display:grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 18px 0;}
     .card{
       border:1px solid var(--line);
-      background: rgba(255,255,255,0.06);
+      background: var(--card2);
       border-radius: var(--radius);
       padding: 18px;
-      box-shadow: var(--shadow);
+      box-shadow: var(--shadow2);
       backdrop-filter: blur(12px);
       transition: transform 180ms ease;
     }
     .card:hover{transform: translateY(-2px);}
-    .card h2{
-      margin: 0 0 10px;
-      font-size: 18px;
-      letter-spacing:-0.2px;
-      display:flex;
-      align-items:center;
-      gap:10px;
-    }
+    .card h2{margin: 0 0 10px; font-size: 18px; letter-spacing:-0.2px; display:flex; align-items:center; gap:10px;}
     .card p{margin:0; color: var(--muted);}
 
-    /* Skills chips */
-    .skill-chips{
-      display:flex; flex-wrap:wrap; gap:10px;
-      margin-top: 10px;
-    }
+    .skill-chips{display:flex; flex-wrap:wrap; gap:10px; margin-top: 10px;}
     .skill{
       padding: 8px 10px;
       border-radius: 999px;
       border:1px solid var(--line);
-      background: rgba(255,255,255,0.05);
-      font-weight:600;
+      background: var(--chip);
+      font-weight:800;
       color: var(--text);
       font-size: 13px;
       opacity:0.95;
     }
 
-    /* Experience timeline */
-    .timeline{margin-top: 6px;}
-    .trow{
-      display:grid;
-      grid-template-columns: 14px 1fr;
-      gap:12px;
-      padding: 10px 0;
+    /* -------- CAROUSEL -------- */
+    .carousel{
+      margin-top: 14px;
+      border:1px solid var(--line);
+      background: var(--card2);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow2);
+      overflow:hidden;
     }
+    .carousel-top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding: 14px 16px;
+      border-bottom:1px solid var(--line);
+    }
+    .carousel-top .hint{color: var(--muted); font-weight:800; font-size: 13px;}
+    .car-controls{display:flex; gap:10px; align-items:center;}
+    .icon-btn{
+      width:38px; height:38px;
+      border-radius: 12px;
+      border:1px solid var(--line);
+      background: var(--btn);
+      color: var(--text);
+      cursor:pointer;
+      display:grid;
+      place-items:center;
+      transition: transform 160ms ease, background 160ms ease;
+    }
+    .icon-btn:hover{transform: translateY(-1px); background: var(--btnHover);}
+    .track{
+      display:flex;
+      gap:14px;
+      padding: 16px;
+      overflow:auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior:smooth;
+    }
+    .track::-webkit-scrollbar{height: 10px;}
+    .track::-webkit-scrollbar-thumb{background: color-mix(in srgb, var(--text) 14%, transparent); border-radius:999px;}
+    .slide{
+      flex: 0 0 340px;
+      scroll-snap-align: start;
+      border:1px solid var(--line);
+      background: linear-gradient(180deg, color-mix(in srgb, var(--card) 90%, transparent), var(--card2));
+      border-radius: 16px;
+      padding: 14px;
+      box-shadow: var(--shadow2);
+      position:relative;
+      overflow:hidden;
+    }
+    .slide::before{
+      content:"";
+      position:absolute;
+      inset:-40% -40%;
+      background: radial-gradient(circle at 30% 30%, color-mix(in srgb, var(--accent) 40%, transparent), transparent 60%);
+      opacity:0.22;
+      transform: rotate(12deg);
+    }
+    .slide *{position:relative; z-index:1;}
+    .slide h3{margin:0 0 6px; font-size: 16px; letter-spacing:-0.2px;}
+    .slide .meta{color: var(--muted); font-weight:900; font-size: 12.5px; margin-bottom: 10px;}
+    .slide ul{margin:0; padding-left: 18px; color: var(--muted);}
+    .tags{display:flex; flex-wrap:wrap; gap:8px; margin-top: 12px;}
+    .tag{
+      padding: 6px 9px;
+      border-radius: 999px;
+      border:1px solid var(--line);
+      background: var(--chip);
+      font-weight:900;
+      font-size: 12px;
+      color: var(--text);
+      opacity:0.95;
+    }
+    .slide-actions{display:flex; gap:10px; margin-top: 12px; flex-wrap:wrap;}
+    .mini-btn{
+      padding: 8px 10px;
+      border-radius: 12px;
+      border:1px solid var(--line);
+      background: var(--btn);
+      color: var(--text);
+      text-decoration:none;
+      font-weight:900;
+      font-size: 13px;
+      transition: background 160ms ease, transform 160ms ease;
+    }
+    .mini-btn:hover{background: var(--btnHover); transform: translateY(-1px);}
+
+    /* EXPERIENCE */
+    .timeline{margin-top: 6px;}
+    .trow{display:grid; grid-template-columns: 14px 1fr; gap:12px; padding: 10px 0;}
     .dot{
       width:10px; height:10px; border-radius:50%;
       margin-top: 7px;
       background: linear-gradient(135deg, var(--accent), var(--accent2));
-      box-shadow: 0 0 0 5px rgba(79,140,255,0.15);
+      box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent) 18%, transparent);
     }
     .trow h3{margin:0; font-size:15.5px;}
-    .tmeta{color: var(--muted); font-weight:600; font-size: 13px; margin-top:2px;}
+    .tmeta{color: var(--muted); font-weight:900; font-size: 13px; margin-top:2px;}
     .trow p{margin:6px 0 0; color: var(--muted);}
 
-    /* Footer */
-    footer{
-      margin: 22px 0 30px;
-      padding: 16px 0;
-      color: var(--muted);
-      text-align:center;
-      opacity:0.95;
-    }
+    footer{margin: 22px 0 30px; padding: 16px 0; color: var(--muted); text-align:center; opacity:0.95;}
     footer a{color: var(--text); text-decoration:underline;}
 
-    /* Responsive */
     @media (max-width: 900px){
       .hero-card{grid-template-columns: 1fr; text-align:left;}
       .profile{align-items:flex-start}
       .grid{grid-template-columns: 1fr;}
       .nav{border-radius: 18px;}
       .nav-links{justify-content:flex-start}
+      .slide{flex-basis: 85%;}
     }
   </style>
 </head>
@@ -317,30 +391,30 @@
         <span class="brand-dot"></span>
         <span>Shaheed Basha Shaik</span>
       </div>
+
       <div class="nav-links">
         <a href="#about">About</a>
+        <a href="#featured">Featured</a>
         <a href="project.html">Projects</a>
         <a href="#skills">Skills</a>
         <a href="#experience">Experience</a>
         <a href="#contact">Contact</a>
+
+        <button class="toggle" id="themeToggle" type="button" aria-label="Toggle theme">
+          <span class="pill"><span class="knob"></span></span>
+          <small id="themeLabel">Dark</small>
+        </button>
       </div>
     </nav>
 
     <section class="hero">
       <div class="hero-card">
-        <div class="hero-left">
-          <span class="kicker">
-            <!-- chip icon -->
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-              <path d="M9 3v3M15 3v3M9 18v3M15 18v3M3 9h3M3 15h3M18 9h3M18 15h3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              <rect x="7" y="7" width="10" height="10" rx="2" stroke="currentColor" stroke-width="2"/>
-            </svg>
-            ASIC / RTL • SoC Verification • FPGA
-          </span>
+        <div class="hero-left" id="about">
+          <span class="kicker">ASIC / RTL • SoC Verification • FPGA</span>
 
           <h1>Building reliable hardware systems through design + verification.</h1>
 
-          <p class="subtitle" id="about">
+          <p class="subtitle">
             I’m an M.S. Computer Engineering student at San Diego State University with hands-on experience in
             <strong>ASIC/SoC design, RTL development, and design verification</strong>. I work with
             <strong>SystemVerilog/UVM</strong>, assertions, coverage closure, synthesis/STA concepts, and FPGA prototyping,
@@ -348,50 +422,15 @@
           </p>
 
           <div class="chips">
-            <span class="chip">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                <path d="M4 6h16M4 12h10M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              </svg>
-              UVM + SVA + Coverage
-            </span>
-            <span class="chip">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                <path d="M7 7h10v10H7z" stroke="currentColor" stroke-width="2"/>
-                <path d="M9 9h6v6H9z" stroke="currentColor" stroke-width="2"/>
-              </svg>
-              RTL Integration + Timing
-            </span>
-            <span class="chip">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                <path d="M4 19V5m0 14h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M7 16l3-5 3 3 4-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-              Python/Tcl Automation
-            </span>
+            <span class="chip">UVM + SVA + Coverage</span>
+            <span class="chip">RTL Integration + Timing</span>
+            <span class="chip">Python/Tcl Automation</span>
           </div>
 
           <div class="btns">
-            <a class="btn btn-primary" href="Shaheed_Basha_Shaik_Portfolio.pdf" download>
-              <!-- download icon -->
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                <path d="M12 3v10m0 0l4-4m-4 4l-4-4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M4 17v3h16v-3" stroke="white" stroke-width="2" stroke-linecap="round"/>
-              </svg>
-              Resume (PDF)
-            </a>
-            <a class="btn btn-secondary" href="Shaheed_Basha_Shaik_Coverletter.pdf" download>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                <path d="M4 7h16v12H4z" stroke="currentColor" stroke-width="2"/>
-                <path d="M4 7l8 6 8-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-              Cover Letter
-            </a>
-            <a class="btn btn-secondary" href="project.html">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              </svg>
-              Projects
-            </a>
+            <a class="btn btn-primary" href="Shaheed_Basha_Shaik_Portfolio.pdf" download>Resume (PDF)</a>
+            <a class="btn" href="Shaheed_Basha_Shaik_Coverletter.pdf" download>Cover Letter</a>
+            <a class="btn" href="project.html">Projects</a>
           </div>
         </div>
 
@@ -406,67 +445,132 @@
           </div>
         </div>
       </div>
+
+      <!-- Featured carousel -->
+      <section class="carousel" id="featured" aria-label="Featured projects carousel">
+        <div class="carousel-top">
+          <div>
+            <strong style="font-size:15px;">Featured Projects</strong>
+            <div class="hint">Swipe on mobile • Use arrows • Press ← / →</div>
+          </div>
+
+          <div class="car-controls">
+            <button class="icon-btn" id="prevBtn" aria-label="Previous project" type="button">←</button>
+            <button class="icon-btn" id="nextBtn" aria-label="Next project" type="button">→</button>
+          </div>
+        </div>
+
+        <div class="track" id="track" tabindex="0" aria-label="Project slides">
+          <article class="slide">
+            <h3>SoC Subsystem Verification (UVM)</h3>
+            <div class="meta">Spring 2026</div>
+            <ul>
+              <li>UVM env for bus + regs + memory-mapped peripherals</li>
+              <li>CRV + coverage + SVA checks → coverage closure</li>
+              <li>Python/Tcl regressions + waveform/coverage debug</li>
+            </ul>
+            <div class="tags">
+              <span class="tag">UVM</span><span class="tag">SVA</span><span class="tag">Coverage</span><span class="tag">Python/Tcl</span>
+            </div>
+            <div class="slide-actions">
+              <a class="mini-btn" href="project.html">View details →</a>
+            </div>
+          </article>
+
+          <article class="slide">
+            <h3>FPGA 32-bit ALU Design & Verification</h3>
+            <div class="meta">Fall 2025</div>
+            <ul>
+              <li>Verilog ALU: arithmetic + logical ops</li>
+              <li>Directed + randomized SV testing</li>
+              <li>Vivado timing/resource analysis + FPGA validation</li>
+            </ul>
+            <div class="tags">
+              <span class="tag">Verilog</span><span class="tag">FPGA</span><span class="tag">Vivado</span><span class="tag">Testbench</span>
+            </div>
+            <div class="slide-actions">
+              <a class="mini-btn" href="project.html">View details →</a>
+            </div>
+          </article>
+
+          <article class="slide">
+            <h3>Formal Property Verification</h3>
+            <div class="meta">Spring 2026</div>
+            <ul>
+              <li>SVAs for FSM/protocol + clock-gating conditions</li>
+              <li>Formal exploration of corner/unreachable states</li>
+              <li>Improved robustness via state optimization</li>
+            </ul>
+            <div class="tags">
+              <span class="tag">Formal</span><span class="tag">SVA</span><span class="tag">FSM</span><span class="tag">JasperGold</span>
+            </div>
+            <div class="slide-actions">
+              <a class="mini-btn" href="project.html">View details →</a>
+            </div>
+          </article>
+
+          <article class="slide">
+            <h3>Low-Power SRAM Controller</h3>
+            <div class="meta">Spring 2025</div>
+            <ul>
+              <li>Clock-gating + low-power modes</li>
+              <li>STA-driven iteration balancing timing/power</li>
+              <li>~20% power efficiency improvement</li>
+            </ul>
+            <div class="tags">
+              <span class="tag">Low Power</span><span class="tag">Clock Gating</span><span class="tag">STA</span><span class="tag">RTL</span>
+            </div>
+            <div class="slide-actions">
+              <a class="mini-btn" href="project.html">View details →</a>
+            </div>
+          </article>
+        </div>
+      </section>
     </section>
   </header>
 
   <main class="container">
     <section class="grid" id="skills">
       <div class="card">
-        <h2>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-            <path d="M7 4h10v16H7z" stroke="currentColor" stroke-width="2"/>
-            <path d="M9 8h6M9 12h6M9 16h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-          Core Skills
-        </h2>
+        <h2>Core Skills</h2>
         <p>Focused on ASIC/SoC verification + RTL design with strong automation and debug workflows.</p>
         <div class="skill-chips">
           <span class="skill">SystemVerilog</span>
           <span class="skill">UVM</span>
           <span class="skill">SVA</span>
+          <span class="skill">Constrained-Random</span>
           <span class="skill">Functional Coverage</span>
           <span class="skill">RTL Design</span>
           <span class="skill">Synthesis / STA</span>
-          <span class="skill">GLS / Equivalence</span>
-          <span class="skill">Python / Tcl</span>
+          <span class="skill">GLS</span>
+          <span class="skill">Equivalence</span>
+          <span class="skill">Python</span>
+          <span class="skill">Tcl</span>
           <span class="skill">Vivado</span>
-          <span class="skill">Questa / ModelSim</span>
+          <span class="skill">Questa/ModelSim</span>
+          <span class="skill">Linux</span>
+          <span class="skill">Git</span>
         </div>
       </div>
 
-      <div class="card">
-        <h2>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-            <path d="M12 2l7 4v6c0 5-3 9-7 10-4-1-7-5-7-10V6l7-4z" stroke="currentColor" stroke-width="2"/>
-            <path d="M9 12l2 2 4-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          Featured Work
-        </h2>
-        <p>Resume-aligned projects that demonstrate design + verification depth.</p>
-        <div class="skill-chips">
-          <span class="skill">SoC Subsystem UVM</span>
-          <span class="skill">ALU (FPGA)</span>
-          <span class="skill">Formal Properties</span>
-          <span class="skill">Low-Power SRAM Ctrl</span>
-          <span class="skill">Integration & Timing</span>
-          <span class="skill">PLL Simulation</span>
+      <div class="card" id="contact">
+        <h2>Contact</h2>
+        <p>Open to full-time roles in ASIC/RTL, SoC verification, FPGA, and validation.</p>
+        <div class="skill-chips" style="margin-top:12px;">
+          <span class="skill">📧 skshaheed34@gmail.com</span>
+          <span class="skill">📍 San Diego, CA</span>
+          <span class="skill">📞 (619) 572-2154</span>
         </div>
-        <div style="margin-top:12px;">
-          <a class="btn btn-secondary" href="project.html">Open Projects →</a>
+        <div class="btns" style="margin-top:14px;">
+          <a class="btn" href="https://www.linkedin.com/in/shaheed-basha-shaik/" target="_blank" rel="noreferrer">LinkedIn</a>
+          <a class="btn" href="project.html">View Projects</a>
         </div>
       </div>
     </section>
 
     <section class="grid" id="experience">
       <div class="card">
-        <h2>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-            <path d="M3 7h18v13H3z" stroke="currentColor" stroke-width="2"/>
-            <path d="M7 7V5h10v2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <path d="M7 11h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-          Experience
-        </h2>
+        <h2>Experience</h2>
         <div class="timeline">
           <div class="trow">
             <div class="dot"></div>
@@ -487,35 +591,13 @@
         </div>
       </div>
 
-      <div class="card" id="contact">
-        <h2>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-            <path d="M4 7h16v12H4z" stroke="currentColor" stroke-width="2"/>
-            <path d="M4 7l8 6 8-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          Contact
-        </h2>
-        <p>Open to full-time roles in ASIC/RTL, SoC verification, FPGA, and validation.</p>
-
-        <div class="skill-chips" style="margin-top:12px;">
-          <span class="skill">📧 skshaheed34@gmail.com</span>
-          <span class="skill">📍 San Diego, CA</span>
-          <span class="skill">📞 (619) 572-2154</span>
-        </div>
-
-        <div class="btns" style="margin-top:14px;">
-          <a class="btn btn-secondary" href="https://www.linkedin.com/in/shaheed-basha-shaik/" target="_blank" rel="noreferrer">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-              <path d="M4 4h4v16H4zM10 10h4v10h-4zM14 10c0-2 2-3 4-3s2 1 2 3v10h-4V12c0-1-1-2-2-2s-2 1-2 2v8h-2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            LinkedIn
-          </a>
-          <a class="btn btn-secondary" href="project.html">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-              <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-            View Projects
-          </a>
+      <div class="card">
+        <h2>Quick Links</h2>
+        <p>Download documents or browse projects.</p>
+        <div class="btns" style="margin-top:12px;">
+          <a class="btn btn-primary" href="Shaheed_Basha_Shaik_Portfolio.pdf" download>Resume (PDF)</a>
+          <a class="btn" href="Shaheed_Basha_Shaik_Coverletter.pdf" download>Cover Letter</a>
+          <a class="btn" href="project.html">Projects</a>
         </div>
       </div>
     </section>
@@ -526,7 +608,59 @@
   </main>
 
   <script>
+    // ----- YEAR -----
     document.getElementById("yr").textContent = new Date().getFullYear();
+
+    // ----- THEME TOGGLE (persist) -----
+    const root = document.documentElement;
+    const themeToggle = document.getElementById("themeToggle");
+    const themeLabel = document.getElementById("themeLabel");
+
+    function setTheme(theme){
+      if(theme === "light"){
+        root.setAttribute("data-theme","light");
+        themeLabel.textContent = "Light";
+      } else {
+        root.removeAttribute("data-theme");
+        themeLabel.textContent = "Dark";
+      }
+      localStorage.setItem("theme", theme);
+    }
+
+    const savedTheme = localStorage.getItem("theme");
+    if(savedTheme) setTheme(savedTheme);
+
+    themeToggle.addEventListener("click", () => {
+      const isLight = root.getAttribute("data-theme") === "light";
+      setTheme(isLight ? "dark" : "light");
+    });
+
+    // ----- CAROUSEL CONTROLS -----
+    const track = document.getElementById("track");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+
+    function scrollBySlide(dir){
+      const slide = track.querySelector(".slide");
+      if(!slide) return;
+      const gap = 14;
+      const amount = slide.getBoundingClientRect().width + gap;
+      track.scrollBy({ left: dir * amount, behavior: "smooth" });
+    }
+
+    prevBtn.addEventListener("click", () => scrollBySlide(-1));
+    nextBtn.addEventListener("click", () => scrollBySlide(1));
+
+    // Keyboard arrows when focused anywhere on page
+    window.addEventListener("keydown", (e) => {
+      if(e.key === "ArrowLeft") scrollBySlide(-1);
+      if(e.key === "ArrowRight") scrollBySlide(1);
+    });
+
+    // Optional: auto-center carousel on load for nicer first view
+    window.addEventListener("load", () => {
+      track.scrollTo({ left: 0, behavior: "auto" });
+    });
   </script>
 </body>
 </html>
