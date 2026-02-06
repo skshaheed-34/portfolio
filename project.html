@@ -5,98 +5,226 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Shaheed Basha Shaik | Projects</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet"/>
+
   <style>
-    body {
-      font-family: 'Inter', sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #f9f9f9;
-      color: #333;
-      line-height: 1.6;
+    :root{
+      --bg:#0b1220;
+      --card: rgba(255,255,255,0.08);
+      --text:#e7eefc;
+      --muted:#b7c6e6;
+      --accent:#4f8cff;
+      --accent2:#7c3aed;
+      --line: rgba(255,255,255,0.12);
+      --shadow: 0 18px 45px rgba(0,0,0,0.35);
+      --radius: 18px;
     }
-    header {
-      background: #1e3a8a;
-      color: white;
-      padding: 2rem;
-      text-align: center;
+    *{box-sizing:border-box}
+    body{
+      font-family:'Inter',sans-serif;
+      margin:0; padding:0;
+      background: radial-gradient(1100px 700px at 10% 15%, rgba(79,140,255,0.35), transparent 60%),
+                  radial-gradient(900px 600px at 90% 10%, rgba(124,58,237,0.35), transparent 60%),
+                  var(--bg);
+      color:var(--text);
+      line-height:1.6;
     }
-    .section {
-      padding: 1.5rem;
-      max-width: 900px;
-      margin: auto;
+    .container{
+      width:min(1100px, 92%);
+      margin:0 auto;
     }
-    h2 {
-      color: #1e3a8a;
-      margin-top: 2rem;
+    header{
+      padding: 24px 0 12px;
     }
-    footer {
-      text-align: center;
-      padding: 2rem;
-      background: #e5e7eb;
+    .topbar{
+      border:1px solid var(--line);
+      background: rgba(255,255,255,0.06);
+      border-radius: 999px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+      padding: 12px 16px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+    .topbar a{
+      color:var(--text);
+      text-decoration:none;
+      font-weight:700;
+      opacity:0.9;
+    }
+    .topbar a:hover{opacity:1; text-decoration:underline}
+    .title{
+      margin: 18px 0 10px;
+      font-size: clamp(26px, 3.2vw, 38px);
+      letter-spacing:-0.5px;
+    }
+    .subtitle{
+      margin: 0 0 14px;
+      color: var(--muted);
+      max-width: 80ch;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      padding: 12px 0 28px;
+    }
+    .card{
+      border:1px solid var(--line);
+      background: rgba(255,255,255,0.06);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+      transition: transform 180ms ease;
+      position:relative;
+      overflow:hidden;
+    }
+    .card:hover{transform: translateY(-2px);}
+    .card h2{
+      margin:0 0 8px;
+      font-size: 18px;
+      letter-spacing:-0.2px;
+    }
+    .meta{
+      color: var(--muted);
+      font-weight:700;
+      font-size: 13px;
+      margin-bottom: 10px;
+    }
+    ul{margin: 0; padding-left: 18px; color: var(--muted);}
+    .tags{
+      display:flex; flex-wrap:wrap; gap:10px;
+      margin-top: 12px;
+    }
+    .tag{
+      padding: 7px 10px;
+      border-radius: 999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,0.05);
+      font-weight:700;
+      font-size: 12.5px;
+      color: var(--text);
+      opacity:0.95;
+    }
+    footer{
+      text-align:center;
+      color: var(--muted);
+      padding: 18px 0 30px;
+    }
+    footer a{color: var(--text); text-decoration:underline;}
+    @media (max-width: 900px){
+      .grid{grid-template-columns: 1fr;}
     }
   </style>
 </head>
-<body>
 
-  <header>
-    <h1>Projects</h1>
-    <p><a href="index.html" style="color:white; text-decoration:underline;">← Back to Home</a></p>
+<body>
+  <header class="container">
+    <div class="topbar">
+      <a href="index.html">← Back to Home</a>
+      <div style="display:flex; gap:14px; flex-wrap:wrap;">
+        <a href="Shaheed_Basha_Shaik_Portfolio.pdf" download>Resume (PDF)</a>
+        <a href="Shaheed_Basha_Shaik_Coverletter.pdf" download>Cover Letter</a>
+        <a href="https://www.linkedin.com/in/shaheed-basha-shaik/" target="_blank" rel="noreferrer">LinkedIn</a>
+      </div>
+    </div>
+
+    <h1 class="title">Projects</h1>
+    <p class="subtitle">
+      Selected projects aligned with my resume: ASIC/SoC verification, RTL design, formal verification,
+      timing/flow exposure, FPGA prototyping, and mixed-signal clocking concepts.
+    </p>
   </header>
 
-  <section class="section">
+  <main class="container">
+    <section class="grid">
 
-    <h2>SoC Subsystem Verification using SystemVerilog/UVM</h2>
-    <p>
-      Developed a UVM-based verification environment for a SoC-level subsystem including bus interfaces,
-      control registers, and memory-mapped peripherals. Implemented constrained-random stimulus,
-      functional coverage, and assertion-based checks to drive coverage closure. Debugged RTL issues
-      using waveform analysis and automated regressions with Python/Tcl.
-    </p>
+      <div class="card">
+        <h2>SoC Subsystem Verification using SystemVerilog/UVM</h2>
+        <div class="meta">Spring 2026</div>
+        <ul>
+          <li>Built a UVM environment for a SoC subsystem (bus interface, control regs, memory-mapped peripherals).</li>
+          <li>Implemented constrained-random stimulus, functional coverage, and SVA checks to drive coverage closure.</li>
+          <li>Automated regressions using Python/Tcl; debugged RTL issues via waveform and coverage feedback.</li>
+        </ul>
+        <div class="tags">
+          <span class="tag">UVM</span><span class="tag">SVA</span><span class="tag">Coverage</span><span class="tag">Python/Tcl</span>
+        </div>
+      </div>
 
-    <h2>FPGA-Based ALU Design, Integration, and Verification</h2>
-    <p>
-      Designed a 32-bit ALU in Verilog supporting arithmetic and logical operations.
-      Built SystemVerilog testbenches with directed and randomized tests and synthesized the design
-      for FPGA implementation. Validated functionality and analyzed timing and resource utilization
-      using Vivado.
-    </p>
+      <div class="card">
+        <h2>FPGA-Based ALU Design, Integration, and Verification</h2>
+        <div class="meta">Fall 2025</div>
+        <ul>
+          <li>Designed a 32-bit ALU in Verilog supporting arithmetic and logical operations.</li>
+          <li>Created directed + randomized SV tests; verified functionality with waveform debug.</li>
+          <li>Synthesized and validated on FPGA; analyzed timing and resource utilization in Vivado.</li>
+        </ul>
+        <div class="tags">
+          <span class="tag">Verilog</span><span class="tag">FPGA</span><span class="tag">Vivado</span><span class="tag">Testbench</span>
+        </div>
+      </div>
 
-    <h2>Formal Property Verification of Control Logic</h2>
-    <p>
-      Authored SystemVerilog Assertions (SVA) to verify FSM behavior, protocol correctness,
-      and clock-gating conditions. Applied formal verification techniques to explore corner cases
-      and unreachable states, improving robustness and power awareness.
-    </p>
+      <div class="card">
+        <h2>Formal Property Verification of Control Logic</h2>
+        <div class="meta">Spring 2026</div>
+        <ul>
+          <li>Authored SVAs for protocol behavior, FSM correctness, and clock-gating conditions.</li>
+          <li>Applied formal verification concepts to explore corner cases and unreachable states.</li>
+          <li>Improved robustness by optimizing state transitions and eliminating unsafe behaviors.</li>
+        </ul>
+        <div class="tags">
+          <span class="tag">Formal</span><span class="tag">SVA</span><span class="tag">FSM</span><span class="tag">JasperGold</span>
+        </div>
+      </div>
 
-    <h2>Low-Power Memory Controller Design</h2>
-    <p>
-      Architected and implemented an SRAM controller with clock-gating and low-power operating modes.
-      Balanced latency, power, and timing constraints through RTL refinement and STA-driven analysis,
-      achieving approximately 20% power efficiency improvement without functional impact.
-    </p>
+      <div class="card">
+        <h2>Low-Power Memory Controller Design</h2>
+        <div class="meta">Spring 2025</div>
+        <ul>
+          <li>Implemented an SRAM controller with clock-gating and low-power operating modes.</li>
+          <li>Balanced latency, timing, and power constraints through RTL refinement and STA-driven iteration.</li>
+          <li>Achieved ~20% power efficiency improvement without impacting access performance.</li>
+        </ul>
+        <div class="tags">
+          <span class="tag">Low Power</span><span class="tag">Clock Gating</span><span class="tag">STA</span><span class="tag">RTL</span>
+        </div>
+      </div>
 
-    <h2>Digital System Integration & Timing Validation</h2>
-    <p>
-      Integrated multiple RTL blocks into a system-level design with clean, timing-safe interfaces.
-      Performed synthesis, static timing analysis, and gate-level simulation to resolve critical path
-      issues and validated post-synthesis correctness through equivalence checking.
-    </p>
+      <div class="card">
+        <h2>Digital System Integration & Timing Validation</h2>
+        <div class="meta">Fall 2024 – Spring 2025</div>
+        <ul>
+          <li>Integrated multiple RTL blocks into a system-level design with clean interfaces.</li>
+          <li>Performed synthesis and STA to resolve setup/hold issues on critical paths.</li>
+          <li>Supported GLS and equivalence checking to validate post-synthesis correctness.</li>
+        </ul>
+        <div class="tags">
+          <span class="tag">Integration</span><span class="tag">Synthesis</span><span class="tag">GLS</span><span class="tag">Equivalence</span>
+        </div>
+      </div>
 
-    <h2>Phase-Locked Loop (PLL) Design & Simulation</h2>
-    <p>
-      Designed and simulated a complete PLL including VCO, phase-frequency detector,
-      charge pump, and passive loop filter using LTspice and MATLAB. Analyzed loop stability,
-      lock time, and frequency behavior, and evaluated clocking tradeoffs relevant to SoC systems.
-    </p>
+      <div class="card">
+        <h2>Phase-Locked Loop (PLL) Design & Simulation</h2>
+        <div class="meta">Mar 2025 – May 2025</div>
+        <ul>
+          <li>Designed a full PLL (VCO, PFD, charge pump, passive loop filter) in LTspice + MATLAB.</li>
+          <li>Analyzed loop stability, bandwidth, lock behavior, and frequency-domain characteristics.</li>
+          <li>Performed FFT-based spectral analysis to study frequency behavior and noise trends.</li>
+        </ul>
+        <div class="tags">
+          <span class="tag">PLL</span><span class="tag">LTspice</span><span class="tag">MATLAB</span><span class="tag">FFT</span>
+        </div>
+      </div>
 
-  </section>
+    </section>
 
-  <footer>
-    <p>
-      Contact: skshaheed34@gmail.com |
-      <a href="https://www.linkedin.com/in/shaheed-basha-shaik/" target="_blank">LinkedIn</a>
-    </p>
-  </footer>
-
+    <footer>
+      Contact: skshaheed34@gmail.com • <a href="https://www.linkedin.com/in/shaheed-basha-shaik/" target="_blank" rel="noreferrer">LinkedIn</a>
+    </footer>
+  </main>
 </body>
 </html>
